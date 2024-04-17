@@ -1,12 +1,14 @@
 # game.py
 import pygame
 from menu import Menu
+from bottom_interface import BottomInterface
 
 class Game:
     def __init__(self):
         pygame.init()
         # Créer la fenêtre du jeu
         self.screen = pygame.display.set_mode((1080, 720))
+        self.bottom_interface = BottomInterface(self.screen)
         self.menu = Menu(self.screen)
         pygame.display.set_caption("Rpg Game")
     
@@ -18,8 +20,10 @@ class Game:
                 if event.type == pygame.QUIT:
                     running = False
                 self.menu.handle_event(event)
+                self.bottom_interface.handle_event(event)
             self.screen.fill((0, 0, 0))
             self.menu.draw()
+            self.bottom_interface.draw()
             pygame.display.flip()
         pygame.quit()
 

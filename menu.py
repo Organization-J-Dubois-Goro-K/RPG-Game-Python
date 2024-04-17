@@ -1,9 +1,8 @@
-#menu.py
+# menu.py
 
 import pygame
 
 class Menu:
-    
     def __init__(self, screen):
         self.screen = screen # Récupérer l'écran du jeu 1080x720
         self.is_visible = True
