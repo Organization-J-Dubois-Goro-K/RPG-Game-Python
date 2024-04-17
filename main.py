@@ -1,5 +1,8 @@
 # main.py
-from Game.window import run_game
+from game import Game
+from menu import Menu
 
 if __name__ == "__main__":
-    run_game()
+    game = Game()
+    menu = Menu(game.screen)
+    game.run()

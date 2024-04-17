@@ -1,0 +1,26 @@
+# game.py
+import pygame
+from menu import Menu
+
+class Game:
+    def __init__(self):
+        pygame.init()
+        # Créer la fenêtre du jeu
+        self.screen = pygame.display.set_mode((1080, 720))
+        self.menu = Menu(self.screen)
+        pygame.display.set_caption("Rpg Game")
+    
+    def run(self):
+        # Boucle de jeu
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                self.menu.handle_event(event)
+            self.screen.fill((0, 0, 0))
+            self.menu.draw()
+            pygame.display.flip()
+        pygame.quit()
+
+
