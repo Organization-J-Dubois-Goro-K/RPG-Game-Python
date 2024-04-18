@@ -1,24 +1,26 @@
 # menu.py
 
 import pygame
-
 class Menu:
     def __init__(self, screen):
+        self.bottom_interface = None # Initialiser sans référence pour éviter l'erreur d'initialisation
         self.screen = screen # Récupérer l'écran du jeu 1080x720
-        self.is_visible = True
+        self.is_visible = False
         self.buttons = [ 
             {
                 'text': 'Reprendre',
-                'rect': pygame.Rect(390, 225, 300, 50)
+                'rect': pygame.Rect(390, 225, 300, 65)
             },
             {
                 'text': 'Quitter',
                 # 'icon': pygame.image.load('assets/exit.png'),  # Charger l'icône 
-                'rect': pygame.Rect(390, 375, 300, 50)
+                'rect': pygame.Rect(390, 375, 300, 65)
             }
         ]
-        self.font = pygame.font.Font(None, 36)
+        self.font = pygame.font.Font('assets/blackjack-webfont.woff', 32)  # Charger la police de caractères
 
+    def set_bottom_interface(self, bottom_interface):
+        self.bottom_interface = bottom_interface  # Définir la référence après la création
 
     def draw(self):
         if self.is_visible: # Si le menu est visible, dessiner le menu
@@ -37,14 +39,21 @@ class Menu:
     def toggle_visibility(self):
         self.is_visible = not self.is_visible # Inverser la visibilité du menu
         
+    def change_icon_bottom_interface(self):
+        for button in self.buttons:
+            if button['text'] == 'Reprendre':
+                self.bottom_interface.buttons[0]['icon'] = pygame.image.load('assets/menu_close.png')
+                self.bottom_interface.buttons[0]['can_click'] = True
 
     def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if event.button == 1:  # Bouton gauche de la souris
-                for button in self.buttons:
-                    if button['rect'].collidepoint(event.pos):
-                        if button['text'] == 'Quitter':
-                            pygame.quit()
-                        if button['text'] == 'Reprendre':
-                            self.toggle_visibility() # Fermer le menu
-                            return
+        if self.is_visible: # Si le menu est visible, gérer les événements
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:  # Bouton gauche de la souris
+                    for button in self.buttons:
+                        if button['rect'].collidepoint(event.pos):
+                            if button['text'] == 'Quitter':
+                                pygame.quit()
+                            if button['text'] == 'Reprendre':
+                                self.toggle_visibility() # Fermer le menu
+                                self.change_icon_bottom_interface() # change l'icone du menu
+                                return

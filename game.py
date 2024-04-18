@@ -8,8 +8,15 @@ class Game:
         pygame.init()
         # Créer la fenêtre du jeu
         self.screen = pygame.display.set_mode((1080, 720))
-        self.bottom_interface = BottomInterface(self.screen)
+        
+        # Créer les instances sans références croisées
         self.menu = Menu(self.screen)
+        self.bottom_interface = BottomInterface(self.screen)
+
+        # Établir les références croisées après l'initialisation
+        self.menu.set_bottom_interface(self.bottom_interface)
+        self.bottom_interface.set_menu(self.menu)
+
         pygame.display.set_caption("Rpg Game")
     
     def run(self):
@@ -26,5 +33,3 @@ class Game:
             self.bottom_interface.draw()
             pygame.display.flip()
         pygame.quit()
-
-
