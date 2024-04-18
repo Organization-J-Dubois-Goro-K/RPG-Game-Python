@@ -14,6 +14,31 @@ class BottomInterface:
                 'title': 'Menu',
                 'can_click' : True
             },
+            {
+                'icon': pygame.image.load('assets/map.png'),  # Charger l'icône de la carte
+                'rect': pygame.Rect(900, 630, 80, 80),  # Positionner le bouton
+                'title': 'Map',
+                'can_click' : True
+            },
+            {
+                'icon': pygame.image.load('assets/inventory.png'),  # Charger l'icône de l'inventaire
+                'rect': pygame.Rect(800, 630, 80, 80),  # Positionner le bouton
+                'title': 'Inventory',
+                'can_click' : True
+            },
+            {
+                'icon': pygame.image.load('assets/statistiques.png'),  # Charger l'icône du personnage
+                'rect': pygame.Rect(700, 632, 80, 80),  # Positionner le bouton
+                'title': 'Statistiques',
+                'can_click' : True
+            },
+            {
+                'icon': pygame.image.load('assets/spell.png'),  # Charger l'icône de quitter
+                'rect': pygame.Rect(600, 634, 80, 80),  # Positionner le bouton
+                'title': 'Spell',
+                'can_click' : True
+            }
+
         ]
 
     def set_menu(self, menu):
@@ -28,10 +53,21 @@ class BottomInterface:
         if event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 for button in self.buttons:
-                    if button['rect'].collidepoint(event.pos) and button['title'] == 'Menu' and button['can_click'] == True: # Si le bouton du menu est cliqué alors ouvre le menu
-                        button['icon'] = pygame.image.load('assets/menu_open.png') # Change l'icône du menu
-                        self.menu.toggle_visibility() # rend visible le menu
-                        button['can_click'] = False
-                    
-
+                    if button['rect'].collidepoint(event.pos) and button['can_click'] == True: # Si le bouton du menu est cliqué alors ouvre le menu
+                        if button['title'] == 'Menu':
+                            button['icon'] = pygame.image.load('assets/menu_open.png') # Change l'icône du menu
+                            self.menu.toggle_visibility() # rend visible le menu
+                            button['can_click'] = False
+                        if button['title'] == 'Map':
+                            print('Open map')
+                            button['can_click'] = False
+                        if button['title'] == 'Inventory':
+                            print('Open inventory')
+                            button['can_click'] = False
+                        if button['title'] == 'Statistiques':
+                            print('Open statistiques')
+                            button['can_click'] = False
+                        if button['title'] == 'Spell':
+                            print('Open spell')
+                            button['can_click'] = False
                     

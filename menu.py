@@ -34,7 +34,6 @@ class Menu:
                     self.screen.blit(text, (button['rect'].x + 105, button['rect'].y + 10)) 
                 if button['text'] == 'Reprendre':
                     self.screen.blit(text, (button['rect'].x + 90, button['rect'].y + 10))
-    
 
     def toggle_visibility(self):
         self.is_visible = not self.is_visible # Inverser la visibilité du menu
